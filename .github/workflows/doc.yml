@@ -39,9 +39,20 @@ jobs:
         run: |
           ford doc.md
 
-      - name: Deploy
+      - name: Upload to Artifacts
         uses: actions/upload-pages-artifact@v1
-        if: ${{ github.ref == 'refs/heads/main' }}
         with:
           path: ./api-doc
-       
+
+  deploy:
+    needs: doc-build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/deploy-pages@v1
+        id: deployment
