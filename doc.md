@@ -5,4 +5,5 @@ author: Nejikugi
 license: by-nc
 src_dir: .
 output_dir: api-doc
+preprocess: false
 ---
